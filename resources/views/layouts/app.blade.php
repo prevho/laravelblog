@@ -14,7 +14,9 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
+        @bukStyles(true)
         @livewireStyles
+        
 
         <!-- Scripts -->
         <!-- Scripts -->
@@ -50,6 +52,13 @@
 
         @stack('modals')
 
+        {{-- Blade UI kit --}}
+        @bukScripts(true)
+        
+        {{-- Livewire --}}
         @livewireScripts
+
+        
+
     </body>
 </html>
