@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class TagController extends Controller
 {
@@ -14,7 +17,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        //Fetch all tags
+        $tags = Tag::all();
+        return view('dashboard.tags.index', compact('tags'));
     }
 
     /**
@@ -25,6 +30,7 @@ class TagController extends Controller
     public function create()
     {
         //
+        return view('dashboard.tags.create');
     }
 
     /**
@@ -33,9 +39,16 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
         //
+        $tag = new Tag();
+        $tag->name = $request->name;
+        $tag->slug = Str::slug($request->name);
+        $tag->save();
+
+        return redirect()->route('tags.index')->with('message', 'Tag Successfully Created');
+
     }
 
     /**
@@ -58,6 +71,7 @@ class TagController extends Controller
     public function edit(Tag $tag)
     {
         //
+        return view('dashboard.tags.edit', compact('tag'));
     }
 
     /**
@@ -67,9 +81,17 @@ class TagController extends Controller
      * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
         //
+         //No need to instnatiate, model has been binded
+        // $tag = new Category();
+        $tag->name = $request->name;
+        // $tag->parent_id = $request->parent_id;
+        $tag->slug = Str::slug($request->name);
+        $tag->update();
+
+        return redirect()->route('tags.index')->with('message', 'Tag Updated Successfully');
     }
 
     /**
@@ -81,5 +103,7 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         //
+        $tag->delete();
+        return redirect()->route('tags.index')->with('message', 'Tag Deleted Successfully');
     }
 }

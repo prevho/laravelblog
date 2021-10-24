@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +41,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
         //Store Category through form
         Route::post('/', [CategoryController::class, 'store'])->name('store');
         //Show Single Category Page
-        Route::get('{category:slug}/show', [CategoryController::class, 'show'])->name('show');
+        Route::get('{category:slug}', [CategoryController::class, 'show'])->name('show');
         //Edit Single Category Page
         Route::get('{category:slug}/edit', [CategoryController::class, 'edit'])->name('edit');
         //Update Single Category form
@@ -60,13 +61,33 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
         //Store Tag through form
         Route::post('/', [TagController::class, 'store'])->name('store');
         //Show Single Tag Page
-        Route::get('{tag:slug}/show', [TagController::class, 'show'])->name('show');
+        Route::get('{tag:slug}', [TagController::class, 'show'])->name('show');
         //Edit Single Tag Page
         Route::get('{tag:slug}/edit', [TagController::class, 'edit'])->name('edit');
         //Update Single Tag form
         Route::put('{tag:slug}/update', [TagController::class, 'update'])->name('update');
         //Delete Single Tag form
         Route::delete('{tag:slug}/delete', [TagController::class, 'destroy'])->name('delete');
+        
+    });
+
+    // Posts
+    // Route::resource('posts', PostController::class);
+    Route::group(['prefix' => 'posts', 'as' => 'posts.'], function() {
+        //View All Posts Page
+        Route::get('/', [PostController::class, 'index'])->name('index');
+        //Create Post page
+        Route::get('create', [PostController::class, 'create'])->name('create');
+        //Store Post through form
+        Route::post('/', [PostController::class, 'store'])->name('store');
+        //Show Single Post Page
+        Route::get('{post:slug}', [PostController::class, 'show'])->name('show');
+        //Edit Single Post Page
+        Route::get('{post:slug}/edit', [PostController::class, 'edit'])->name('edit');
+        //Update Single Post form
+        Route::put('{post:slug}/update', [PostController::class, 'update'])->name('update');
+        //Delete Single Post form
+        Route::delete('{post:slug}/delete', [PostController::class, 'destroy'])->name('delete');
         
     });
 
