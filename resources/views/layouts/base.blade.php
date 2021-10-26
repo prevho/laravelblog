@@ -21,6 +21,9 @@
             <x-partials.footer />
         </footer>
 
+        {{-- Livewire --}}
         @livewireScripts
+        {{-- <livewire:scripts> --}}
+        
     </body>
 </html>

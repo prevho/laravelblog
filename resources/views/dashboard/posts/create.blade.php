@@ -66,9 +66,9 @@
                         {{-- schedule--}}
                         <x-jet-label for="published_at" value="{{ __('Schedule Post') }}" />
 
-                        <x-pikaday name="published_at" format="YYYY-MM-DD" />
+                        {{-- <x-pikaday name="published_at" format="YYYY-MM-DD" /> --}}
 
-                        {{-- <input type="date" name="published_at" id="published_at" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3"> --}}
+                        <input type="date" name="published_at" id="published_at" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3">
 
                         <span class="text-xs text-gray-600 mt-2">You can Schedule the post in the future</span>
                         <x-jet-input-error for="published_at" class="mt-2"/>
@@ -76,9 +76,9 @@
 
                     <div class="mt-5">
                         {{-- Category--}}
-                        <x-jet-label for="category" value="{{ __('Category') }}" />
+                        <x-jet-label for="category_id" value="{{ __('Category') }}" />
 
-                        <select name="category_id" id="" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3">
+                        <select name="category_id" id="category_id" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3">
                             <option value="">Select Category</option>
                             @foreach($categories as $key => $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -86,7 +86,7 @@
                         </select>
 
                         <span class="text-xs text-gray-600 mt-2">Category</span>
-                        <x-jet-input-error for="category" class="mt-2"/>
+                        <x-jet-input-error for="category_id" class="mt-2"/>
                     </div>
 
                     <div class="mt-5">

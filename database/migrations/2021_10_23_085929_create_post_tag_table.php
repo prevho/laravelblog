@@ -17,10 +17,10 @@ class CreatePostTagTable extends Migration
             $table->id();
 
             // Post Id
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
 
             // Tag Id
-            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
 
             $table->timestamps();
         });

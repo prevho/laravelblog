@@ -58,11 +58,18 @@ class Post extends Model
         return $this->HasMany(Comment::class);
     }
 
-    public function id(): int {
-        return $this->id;
-    }
+    // public function id(): int {
+    //     return $this->id;
+    // }
 
-    public function title(): string {
-        return $this->title;
+    // public function title(): string {
+    //     return $this->title;
+    // }
+
+    public static function searchPost($search) {
+        // if empty return static::query if not, return 
+        return empty($search) ? static::query() 
+        : static::query()->where('id', 'like', '%' . $search . '%')->orWhere('title', 'like', '%' . $search . '%')
+        ->orWhere('body', 'like', '%' . $search . '%');
     }
 }

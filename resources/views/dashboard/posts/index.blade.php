@@ -27,7 +27,7 @@
                 {{-- <x-jet-welcome /> --}}
 
 
-LIVEWIRE TABLE
+<livewire:post.index/>
 
                 
             </div>
