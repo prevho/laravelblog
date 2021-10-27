@@ -66,9 +66,9 @@
                         {{-- schedule--}}
                         <x-jet-label for="published_at" value="{{ __('Schedule Post') }}" />
 
-                        {{-- <x-pikaday name="published_at" format="YYYY-MM-DD" /> --}}
+                        <x-pikaday name="published_at" format="YYYY-MM-DD" />
 
-                        <input type="date" name="published_at" id="published_at" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3">
+                        {{-- <input type="date" name="published_at" id="published_at" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block w-full p-3"> --}}
 
                         <span class="text-xs text-gray-600 mt-2">You can Schedule the post in the future</span>
                         <x-jet-input-error for="published_at" class="mt-2"/>
@@ -90,8 +90,18 @@
                     </div>
 
                     <div class="mt-5">
-                       {{-- Tags --}}
-                       <x-tags :tags="$tags" />
+                       {{-- Tags - livewire --}}
+                       {{-- <x-tags :tags="$tags" /> --}}
+                       {{-- Tags Choice.js --}}
+                      {{-- Tags --}}
+                      <div>
+                        <x-jet-label for="tags" value="{{ __('Tag') }}" />
+                        <select name="tags[]" id="create-post" multiple x-data="{}" x-init="function () { choices($el) }">
+                            @foreach ($tags as $tag )
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     </div>
 
                     <div class="mt-5">

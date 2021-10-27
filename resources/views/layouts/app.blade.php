@@ -10,6 +10,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- Choice css Styles -->
+        <link rel="stylesheet" href="{{ asset('css/choices.css') }}">
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -56,13 +59,22 @@
 
         @stack('modals')
 
-        {{-- Blade UI kit --}}
-        @bukScripts(true)
-        
-        {{-- Livewire --}}
-        @livewireScripts
-        
+    
 
+
+        
+        
+        
+        
+            <!-- Include Choices JavaScript (latest) -->
+{{-- <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script> --}}
+<!-- Or versioned -->
+
+{{-- Livewire --}}
+@livewireScripts
+
+{{-- Blade UI kit --}}
+@bukScripts(true)
         
 
     </body>

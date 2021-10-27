@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
@@ -53,7 +55,7 @@ class PostController extends Controller
 
         // Tags
         // Seperate them at the comma and create an array
-        $tags = explode(',', $request->tags);
+        // $tags = explode(',', $request->tags);
 
         $post = new Post();
 
@@ -69,6 +71,7 @@ class PostController extends Controller
 
         // Image
         if($request->hasFile('image')) {
+            
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
             $imageNewName = explode('.', $imageName)[0];
@@ -80,12 +83,14 @@ class PostController extends Controller
 
             $post->image = $fileExtention;
 
+
         }else {
             $post->image = 'default.png';
         };
 
         $post->save();
-        $post->tags()->sync($tags);
+        // $post->tags()->sync($tags);
+        $post->tags()->sync($request->tags);
 
         return redirect()->route('posts.index')->with('message', 'Post Successfully Created');
 
@@ -112,6 +117,10 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        $tags = Tag::all();
+        $categories = Category::all();
+        $oldTags = $post->tags->pluck('id')->toArray();
+        return view('dashboard.posts.edit', compact('post', 'categories', 'tags','oldTags'));
     }
 
     /**
@@ -121,9 +130,45 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
         //
+
+        // $post = new Post();
+
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->body = $request->body;
+        $post->category_id = $request->category_id;
+        $post->user_id = Auth::user()->id;
+        $post->published_at = $request->published_at;
+        $post->description = $request->description;
+
+        // Image
+        if($request->hasFile('image')) {
+            // get old file name
+            $oldFileName = $post->image;
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imageNewName = explode('.', $imageName)[0];
+            $fileExtention = time() . '.' . $imageNewName . '.' . $image->getClientOriginalExtension();
+
+            $location = storage_path('app/public/blog_images/' . $fileExtention);
+            //Resize with intervention image
+            Image::make($image)->resize(1200, 630)->save($location);
+
+            $post->image = $fileExtention;
+
+            // Delete old post if new one is uploaded
+            File::delete(storage_path('app/public/blog_images/'.$oldFileName));
+
+        };
+
+        $post->update();
+        // $post->tags()->sync($tags);
+        $post->tags()->sync($request->tags);
+
+        return redirect()->route('posts.index')->with('message', 'Post Successfully Updated');
     }
 
     /**
