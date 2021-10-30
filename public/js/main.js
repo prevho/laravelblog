@@ -1,9 +1,9 @@
-var scrollpos = window.scrollY;
-      var header = document.getElementById("header");
-      var navcontent = document.getElementById("nav-content");
-      var navaction = document.getElementById("navAction");
-      var brandname = document.getElementById("brandname");
-      var toToggle = document.querySelectorAll(".toggleColour");
+let scrollpos = window.scrollY;
+      const header = document.getElementById("header");
+      const navcontent = document.getElementById("nav-content");
+      // let navaction = document.getElementById("navAction");
+      const brandname = document.getElementById("brandname");
+      const toToggle = document.querySelectorAll(".toggleColour");
 
       document.addEventListener("scroll", function () {
         /*Apply classes for slide in bar*/
@@ -11,12 +11,12 @@ var scrollpos = window.scrollY;
 
         if (scrollpos > 10) {
           header.classList.add("bg-white");
-          navaction.classList.remove("bg-white");
-          navaction.classList.add("gradient");
-          navaction.classList.remove("text-gray-800");
-          navaction.classList.add("text-white");
+          // navaction.classList.remove("bg-white");
+          // navaction.classList.add("gradient");
+          // navaction.classList.remove("text-gray-800");
+          // navaction.classList.add("text-white");
           //Use to switch toggleColour colours
-          for (var i = 0; i < toToggle.length; i++) {
+          for (let i = 0; i < toToggle.length; i++) {
             toToggle[i].classList.add("text-gray-800");
             toToggle[i].classList.remove("text-white");
           }
@@ -25,12 +25,12 @@ var scrollpos = window.scrollY;
           navcontent.classList.add("bg-white");
         } else {
           header.classList.remove("bg-white");
-          navaction.classList.remove("gradient");
-          navaction.classList.add("bg-white");
-          navaction.classList.remove("text-white");
-          navaction.classList.add("text-gray-800");
+          // navaction.classList.remove("gradient");
+          // navaction.classList.add("bg-white");
+          // navaction.classList.remove("text-white");
+          // navaction.classList.add("text-gray-800");
           //Use to switch toggleColour colours
-          for (var i = 0; i < toToggle.length; i++) {
+          for (let i = 0; i < toToggle.length; i++) {
             toToggle[i].classList.add("text-white");
             toToggle[i].classList.remove("text-gray-800");
           }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Authenticate;
+use App\Models\Post;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Verified;
 
@@ -19,6 +21,16 @@ class HomeController extends Controller
     // }
 
     public function index() {
-        return view('home.index');
+
+        $today = new \DateTime();
+
+        // Fetch featured posts
+        $posts = Post::where('featured', true)
+        ->whereNotNull('published_at')
+        ->where('published_at', '<=', $today)
+        ->latest()
+        ->take(3)
+        ->get();
+        return view('home.index', compact('posts'));
     }
 }
