@@ -24,6 +24,12 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('categories.subCategories') }}" :active="request()->routeIs('categories.subCategories')">
+                        {{ __('Sub Categories') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('tags.index') }}" :active="request()->routeIs('tags.index')">
                         {{ __('Tags') }}
                     </x-jet-nav-link>

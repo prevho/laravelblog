@@ -26,19 +26,18 @@
                 <form action="{{ route('categories.update', $category->slug) }}" method="post">
                     @csrf
                     @method('put')
+    @if(!is_null($category->parent_id))
 
-                    {{-- <div>
-                        <small class="mb-4 text-gray-500">
-                            Select Parent Category
-                        </small>
-                        <select name="parent_id" id="" class="w-full mb-6">
-                            <option value="">Select Category</option>
-                            @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
-    
+    <div>
+        <small>Parent for Sub Category Only</small>
+        <select name="parent_id" class="w-full mb-6 bg-indigo-200 border-none" id="">
+            @foreach ($categories as $mainCategory)
+                <option value="{{ $mainCategory->id }}" {{ $category->parent_id == $mainCategory->id ? 'selected' : '' }}>{{ $mainCategory->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    @endif
                     <div>
 
                         <x-jet-label for="name" value="{{ __('Name') }}" />

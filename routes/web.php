@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 // Home Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,6 +32,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Blog Routes
 Route::get('blog', [BlogController::class, 'index'])->name('blog');
+Route::get('post/{post:slug}', [BlogController::class, 'show'])->name('show');
+
+// Route::get('blogs/4', function() {
+//     return "blog";
+// });
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
@@ -42,6 +50,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
     Route::group(['prefix' => 'categories', 'as' => 'categories.'], function() {
         //View All Categories Page
         Route::get('/', [CategoryController::class, 'index'])->name('index');
+        //View All Sub Categories Page
+        Route::get('sub-categories', [CategoryController::class, 'subCategories'])->name('subCategories');
         //Create Category page
         Route::get('create', [CategoryController::class, 'create'])->name('create');
         //Store Category through form
@@ -87,7 +97,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
         //Store Post through form
         Route::post('/', [PostController::class, 'store'])->name('store');
         //Show Single Post Page
-        Route::get('{post:slug}', [PostController::class, 'show'])->name('show');
+        // Route::get('{post:slug}', [PostController::class, 'show'])->name('show');
+        // Route::get('{post:slug}', [PostController::class, 'show'])->name('show');
         //Edit Single Post Page
         Route::get('{post:slug}/edit', [PostController::class, 'edit'])->name('edit');
         //Update Single Post form
@@ -100,6 +111,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
 
 
 });
+
+
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

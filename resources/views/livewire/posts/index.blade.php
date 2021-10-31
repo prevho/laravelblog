@@ -97,7 +97,7 @@
                     </td>
 
                     <td class="px-2 py-4 whitespace-nowrap">
-                        FEATURED
+                        <livewire:buttons.featured :post="$post" :name="'featured'" :key="'featured'.$post->id" />
                     </td>
 
                     <td class="px-2 py-4 whitespace-nowrap">

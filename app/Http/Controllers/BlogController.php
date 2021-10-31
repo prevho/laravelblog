@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -18,7 +19,8 @@ class BlogController extends Controller
         return view('pages.blog.index');
     }
 
-//     public function show() {
-
-//     }
+    public function show(Post $post) {
+        // dd($post);
+        return view('pages.blog.showpost', compact('post'));
+    }
 }

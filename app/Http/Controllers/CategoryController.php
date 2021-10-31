@@ -90,8 +90,8 @@ class CategoryController extends Controller
         //
         //Fetch all categories and sub categories
         // $id = 
-        // $categories = Category::with('subCategories')->whereNull('parent_id')->get();
-        return view('dashboard.categories.edit', compact('category'));
+        $categories = Category::with('subCategories')->whereNull('parent_id')->get();
+        return view('dashboard.categories.edit', compact('category', 'categories'));
     }
 
     /**
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         //No need to instnatiate, model has been binded
         // $category = new Category();
         $category->name = $request->name;
-        // $category->parent_id = $request->parent_id;
+        $category->parent_id = $request->parent_id;
         $category->slug = Str::slug($request->name);
         $category->update();
 
@@ -124,5 +124,11 @@ class CategoryController extends Controller
         //
         $category->delete();
         return redirect()->route('categories.index')->with('message', 'Category Deleted Created');
+    }
+
+    public function subCategories() {
+        $categories = Category::with('subCategories')->whereNotNull('parent_id')->get();
+
+        return view('dashboard.categories.sub-categories', compact('categories'));
     }
 }

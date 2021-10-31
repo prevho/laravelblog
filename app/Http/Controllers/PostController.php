@@ -103,10 +103,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
-    {
-        //
-    }
+    // public function show(Post $post) {
+    //     return view('pages.blog.show', compact('post'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
